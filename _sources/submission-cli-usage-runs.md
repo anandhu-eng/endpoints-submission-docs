@@ -1,0 +1,280 @@
+<!--
+  PROVENANCE SNAPSHOT — do not edit.
+  Upstream : docs/endpoints-cli/usage/runs.md
+  Repo     : mlcommons/endpoints-submission-cli @ main@f48ca84
+  Captured : 2026-09-13
+  Purpose  : diff this against upstream to find what drifted since the docs were written.
+-->
+
+# Run commands
+
+Runs represent individual benchmark executions. Each run is registered from a local result folder, uploaded as a compressed archive, and given a UUID that can later be referenced in a submission.
+
+---
+
+## runs list
+
+List all runs registered under the authenticated account.
+
+```bash
+endpoints-submission-cli runs list [--token TOKEN] [-j]
+```
+
+| Flag | Description |
+|---|---|
+| `--token TOKEN` | API key. Falls back to `PRISM_USER_API_TOKEN`. |
+| `-j` / `--json` | Print raw JSON instead of the Rich table. |
+
+**Example:**
+
+```bash
+endpoints-submission-cli runs list
+
+endpoints-submission-cli runs list -j
+```
+
+**Output (table):**
+
+```
+ ID                                    Model                             Concurrency  Started At
+ d5d9873e-5eca-4f8d-a487-4be1cb8b440c  meta-llama/Llama-3.1-8B-Instruct  4            2025-04-10T09:00:00
+```
+
+---
+
+## runs create
+
+Parse a local run folder, register a run record with the API, and upload the folder as a compressed archive (`.tar.gz`).
+
+```bash
+endpoints-submission-cli runs create \
+  --path PATH \
+  [--token TOKEN] \
+  [--expires-at DATETIME] \
+  [--pinned] \
+  [--test] \
+  [--dry-run]
+```
+
+| Flag | Required | Description |
+|---|---|---|
+| `--path PATH` | yes | Path to the local run folder. |
+| `--token TOKEN` | no | API key. |
+| `--expires-at DATETIME` | no | Expiry datetime in ISO 8601 format (e.g. `2026-01-01T00:00:00`). Defaults to server policy when omitted. |
+| `--pinned` | no | Pin the run immediately to prevent automatic expiry. |
+| `--test` | no | Mark the run as a test run so it is excluded from published reporting. Fixed at creation — there is no API to change it later. |
+| `--dry-run` | no | Print the parsed API payload as JSON and exit without calling the API. |
+
+A run flagged `--test` shows as `Test Run │ Yes` in `runs get`. It is **not** visible in
+`runs list`: that view is served by the API's `RunSummary` schema, which does not carry
+`is_test`, so the test marker stays dormant there until the API exposes it.
+
+`submissions create-local --test` sets the same flag on every run it registers, so a test
+submission never leaves untagged runs behind. `submissions create` takes already-registered
+runs, so flag those at `runs create` time.
+
+**Run folder layout** — the folder must contain:
+
+```
+<run-folder>/
+├── system_desc.json                  # §8.2 hardware/software description (required)
+├── point.yaml                        # §8.3 Pareto-point disclosure (required)
+│                                     #   ^ both authored by the submitter, not by endpoints
+├── performance/result_summary.json   # Performance metrics (required)
+├── accuracy/accuracy_results.json    # Per-dataset accuracy scores
+├── config.yaml                       # Resolved benchmark configuration (optional as of v1.0)
+├── events.jsonl                      # Per-event log (largest file by far)
+├── report.txt                        # Human-readable report
+├── sample_idx_map.json               # Sample index mapping
+├── metrics/final_snapshot.json       # Metrics snapshot
+├── src/<implementation>/             # Merged into the bundle's shared src/ (README.md required)
+└── documentation/                    # Merged into the bundle's shared docs/
+```
+
+This is the layout `mlcommons/endpoints` writes to its `report_dir` — `performance/`
+exists when the performance phase ran, `accuracy/` when the accuracy phase ran, and
+`--mode both` produces both. See
+[run-folder layout](../reference/run-folder-layout.md) for a captured example. Flat
+layouts that put `result_summary.json` at the top level are not accepted by
+`runs create`.
+
+`point.yaml` is the required one: it is the §8.3 disclosure the Submission Checker
+validates (seeds, warmup counts, data source, region, model and dataset metadata), and it
+is copied into the bundle verbatim — the CLI does not derive it from `config.yaml` and
+does not fill in missing fields, so whatever the harness emits is what gets submitted.
+
+`config.yaml` became **optional** in v1.0. It records what the harness was told to do and
+carries no disclosure of its own; it is still copied through whenever a run supplies it.
+The builder needs to know whether a run is an accuracy or a performance run, and it
+will not guess. It reads `datasets[].type` from `config.yaml` first, then falls back to
+point.yaml's §8.3 `dataset_type` when that is exactly `Accuracy` or `Performance`. If
+neither answers — no `config.yaml` and no `dataset_type`, or a `dataset_type` of
+`Accuracy + Performance`, which describes the dataset rather than this run — the build
+fails with a message naming the run.
+
+That is deliberate. Defaulting to "performance" was silently destructive: an accuracy
+run shipped without a `config.yaml` would be filed as its concurrency's performance run,
+collide with the real one, and drop its accuracy results from the bundle.
+
+**Rollback behaviour:** if the archive upload fails after the run record has been created, the CLI automatically deletes the run record to leave a clean state. If that delete also fails, the orphaned run ID is printed so it can be cleaned up manually.
+
+**Example:**
+
+```bash
+# Register and upload
+endpoints-submission-cli runs create --path ./results/llama3_h100_c4
+
+# Preview the payload without calling the API
+endpoints-submission-cli runs create --path ./results/llama3_h100_c4 --dry-run
+
+# Register with a custom expiry
+endpoints-submission-cli runs create \
+  --path ./results/llama3_h100_c4 \
+  --expires-at 2026-06-01T00:00:00
+
+# Register and pin immediately
+endpoints-submission-cli runs create --path ./results/llama3_h100_c4 --pinned
+
+# Register as a test run, excluded from published reporting
+endpoints-submission-cli runs create --path ./results/llama3_h100_c4 --test
+```
+
+**Output:**
+
+```
+Run created: d5d9873e-5eca-4f8d-a487-4be1cb8b440c
+Archive: gs://mlperf-runs/d5d9873e-…/d5d9873e-….tar.gz
+```
+
+---
+
+## runs get
+
+Fetch full details of a single run and optionally download its archive.
+
+```bash
+endpoints-submission-cli runs get \
+  --run-id RUN_ID \
+  [--download-to DIR] \
+  [--token TOKEN] \
+  [-j|--json]
+```
+
+| Flag | Required | Description |
+|---|---|---|
+| `--run-id RUN_ID` | yes | Run UUID. |
+| `--download-to DIR` | no | Directory to download the run archive (`.tar.gz`) into. Created automatically if it does not exist. |
+| `--token TOKEN` | no | API key. |
+| `-j`, `--json` | no | Output the raw API record as JSON instead of the table. |
+
+By default the run is rendered as a table, followed by a **System Info** table. `config` and `result_summary` are nested blobs and are omitted from the table — use `-j/--json` to see them. When `--download-to` is provided, the archive is saved as `<run-id>.tar.gz` inside the specified directory and the saved path is printed afterwards; that message goes to stderr, so `runs get -j` stays pipeable into `jq`.
+
+**Example:**
+
+```bash
+# Fetch run details only
+endpoints-submission-cli runs get --run-id d5d9873e-5eca-4f8d-a487-4be1cb8b440c
+
+# Raw JSON, including config and result_summary
+endpoints-submission-cli runs get --run-id d5d9873e-5eca-4f8d-a487-4be1cb8b440c -j
+
+# Fetch details and download the archive to ./downloads/
+endpoints-submission-cli runs get \
+  --run-id d5d9873e-5eca-4f8d-a487-4be1cb8b440c \
+  --download-to ./downloads
+```
+
+**Output (with `--download-to`):**
+
+```
+       Run d5d9873e-5eca-4f8d-a487-4be1cb8b440c
+┏━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Field               ┃ Value                              ┃
+┡━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ ID                  │ d5d9873e-5eca-4f8d-a487-4be1cb8b…  │
+│ Model               │ meta-llama/Llama-3.1-8B-Instruct   │
+│ Concurrency         │ 4                                  │
+│ Test Run            │ No                                 │
+│ …                   │ …                                  │
+└─────────────────────┴────────────────────────────────────┘
+Archive saved to ./downloads/d5d9873e-5eca-4f8d-a487-4be1cb8b440c.tar.gz
+```
+
+`submissions get` marks a flagged run with a yellow `*` before the model name in its embedded
+runs table, with a `* = test run` legend beneath. `runs list` cannot show this yet — its
+`RunSummary` payload omits `is_test`.
+
+---
+
+## runs delete
+
+Delete a run record and its stored archive.
+
+```bash
+endpoints-submission-cli runs delete \
+  --run-id RUN_ID \
+  [--token TOKEN]
+```
+
+| Flag | Required | Description |
+|---|---|---|
+| `--run-id RUN_ID` | yes | Run UUID. |
+| `--token TOKEN` | no | API key. |
+
+> **Note:** Runs that belong to an active submission cannot be deleted. Withdraw the submission first (`submissions withdraw`), then delete the run.
+
+**Order of operations:** archive is deleted from storage first (best-effort; a 404 is silently ignored), then the run record is deleted from the database.
+
+**Example:**
+
+```bash
+endpoints-submission-cli runs delete --run-id d5d9873e-5eca-4f8d-a487-4be1cb8b440c
+```
+
+---
+
+## runs pin
+
+Pin a run to prevent automatic expiry (`expires_at` is set to `null`).
+
+```bash
+endpoints-submission-cli runs pin \
+  --run-id RUN_ID \
+  [--token TOKEN]
+```
+
+| Flag | Required | Description |
+|---|---|---|
+| `--run-id RUN_ID` | yes | Run UUID. |
+| `--token TOKEN` | no | API key. |
+
+**Example:**
+
+```bash
+endpoints-submission-cli runs pin --run-id d5d9873e-5eca-4f8d-a487-4be1cb8b440c
+# → Run pinned: d5d9873e-5eca-4f8d-a487-4be1cb8b440c
+```
+
+---
+
+## runs unpin
+
+Restore normal expiry behaviour on a pinned run.
+
+```bash
+endpoints-submission-cli runs unpin \
+  --run-id RUN_ID \
+  [--token TOKEN]
+```
+
+| Flag | Required | Description |
+|---|---|---|
+| `--run-id RUN_ID` | yes | Run UUID. |
+| `--token TOKEN` | no | API key. |
+
+**Example:**
+
+```bash
+endpoints-submission-cli runs unpin --run-id d5d9873e-5eca-4f8d-a487-4be1cb8b440c
+# → Run unpinned: d5d9873e-5eca-4f8d-a487-4be1cb8b440c
+```

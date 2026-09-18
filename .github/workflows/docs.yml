@@ -1,0 +1,61 @@
+name: docs
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: "0 6 * * 1"   # weekly external link check
+
+# Allow one deploy at a time; a newer push supersedes an in-flight one.
+concurrency:
+  group: docs-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Build (strict — a broken internal link or anchor fails here)
+        run: mkdocs build --strict
+
+  linkcheck:
+    # External links break independently of our changes, so this runs on a schedule
+    # rather than per-PR. Authenticated MLCommons destinations are expected to 403.
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: lycheeverse/lychee-action@v2
+        with:
+          args: --no-progress --exclude-all-private --accept 200,403,429 'docs/**/*.md'
+          fail: false
+
+  deploy:
+    needs: build
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write        # gh-deploy force-pushes the built site to gh-pages
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0     # gh-deploy needs history to update the gh-pages branch
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      # ghp-import (used by gh-deploy) commits as the current git user, and
+      # actions/checkout does not configure one.
+      - name: Configure git identity
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      - run: mkdocs gh-deploy --force

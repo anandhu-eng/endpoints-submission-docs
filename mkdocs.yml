@@ -1,0 +1,139 @@
+site_name: MLPerf Endpoints — Submitter Documentation
+site_description: How to prepare, validate and submit an MLPerf Endpoints benchmark result.
+site_url: https://anandhu-eng.github.io/endpoints-submission-docs/
+repo_url: https://github.com/mlcommons/endpoints_policies
+edit_uri: ""
+copyright: MLPerf and MLCommons are trademarks of MLCommons Association.
+
+strict: true
+
+# Make link problems real failures under --strict, not INFO chatter.
+validation:
+  omitted_files: warn
+  absolute_links: warn
+  unrecognized_links: warn
+  anchors: warn
+  nav:
+    omitted_files: info
+
+# Shared snippet partials. Read from disk by pymdownx.snippets via its base_path,
+# so they must not also be built and published as standalone pages.
+exclude_docs: |
+  _includes/
+
+theme:
+  name: material
+  # MLCommons stacked logo, from mlcommons/mlperf-sysinfo docs/img/logo_v2.svg.
+  # The header variant is white-filled because the source wordmark has no fill
+  # (so it renders black) and the header sits on the indigo primary colour.
+  logo: assets/mlcommons-logo-white.svg
+  favicon: assets/mlcommons-logo-mark.svg
+  features:
+    - navigation.tabs
+    - navigation.indexes
+    - navigation.top
+    - navigation.tracking
+    - content.code.copy
+    - content.tabs.link
+    - search.suggest
+    - search.highlight
+    - toc.follow
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - def_list
+  - md_in_html
+  - tables
+  - footnotes
+  - abbr
+  - pymdownx.details
+  # Renders :material-*: / :octicons-*: icon shortcodes as inline SVG.
+  # Without this they emit as literal text.
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.caret
+  - pymdownx.mark
+  - pymdownx.tilde
+  - pymdownx.keys
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.snippets:
+      base_path: ["docs/_includes"]
+      auto_append: ["glossary.md"]
+      check_paths: true
+  - toc:
+      permalink: true
+
+nav:
+  - Home: index.md
+
+  - Understand:
+      - understand/index.md
+      - What is MLPerf Endpoints?: understand/what-is-mlperf-endpoints.md
+      - How submission works: understand/how-submission-works.md
+      - Divisions and scenarios: understand/divisions-and-scenarios.md
+      - Membership, PRISM and eligibility: understand/eligibility.md
+
+  - Submission Workflow:
+      - workflow/index.md
+      - Before you begin: workflow/before-you-begin.md
+      - 1. Register and get a token: workflow/register.md
+      - 2. Install the tools: workflow/install-tools.md
+      - 3. Plan your Pareto curve: workflow/plan-your-curve.md
+      - 4. Run the measurement points: workflow/run-the-points.md
+      - 5. Author the disclosure files: workflow/author-disclosures.md
+      - 6. Validate locally: workflow/validate.md
+      - 7. Submit: workflow/submit.md
+      - 8. After you submit: workflow/after-submission.md
+
+  - Rules & Compliance:
+      - rules/index.md
+      - Requirements you must meet: rules/requirements.md
+      - Model equivalence (Standardized): rules/model-equivalence.md
+      - Publication status: rules/publication-status.md
+      - Why submissions get rejected: rules/rejection-reasons.md
+
+  - Reference:
+      - reference/index.md
+      - Submission package layout: reference/package-layout.md
+      - point.yaml: reference/point-yaml.md
+      - system_desc.json: reference/system-desc-json.md
+      - Metrics and regions: reference/metrics-and-regions.md
+      - Benchmark runner CLI: reference/cli-inference-endpoint.md
+      - Submission CLI: reference/cli-submission.md
+      - Submission checker: reference/cli-checker.md
+      - Compliance checks: reference/compliance-checks.md
+      - Submission states: reference/submission-states.md
+      - Glossary: reference/glossary.md
+
+  - Help:
+      - help/index.md
+      - Troubleshooting: help/troubleshooting.md
+      - FAQ: help/faq.md
+      - Open questions and WIP rules: help/open-questions.md
+      - Getting support: help/support.md
+
+extra_css:
+  - stylesheets/extra.css

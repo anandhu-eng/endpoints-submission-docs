@@ -1,0 +1,8 @@
+# MkDocs build output. The site is built by CI and published to gh-pages;
+# committing it here would double every change and conflict on every merge.
+site/
+
+.venv/
+__pycache__/
+*.pyc
+.DS_Store

@@ -1,0 +1,15 @@
+# PROVENANCE SNAPSHOT — do not edit.
+# Upstream : endpoints_policies/seedset.yaml
+# Repo     : mlcommons/endpoints_policies @ v1.0_rules_dev@a7ec3cc
+# Captured : 2026-09-19
+# Purpose  : the published v1.0 seed set (PR #117). Compare against the checker's mirror at
+#            endpoints-submission-cli/src/submission_checker/data/seed_sets.yaml.
+
+cohort:
+  version: 1.0
+  cohort-id: 2026-10-C1
+  seed_sets:                              # a submission selects exactly one, by id
+    - id: A
+      scheduler_rng_seed:    10487924139932647040
+      sample_index_rng_seed: 586478644936801402
+      model_seed:            9315206023656308754
