@@ -1,0 +1,2201 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="How to prepare, validate and submit an MLPerf Endpoints benchmark result.">
+      
+      
+      
+        <link rel="canonical" href="https://anandhu-eng.github.io/endpoints-submission-docs/rules/requirements/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../model-equivalence/">
+      
+      
+      <link rel="icon" href="../../assets/mlcommons-logo-mark.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.15">
+    
+    
+      
+        <title>Requirements you must meet - MLPerf Endpoints — Submitter Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.342714a4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#requirements-you-must-meet" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="MLPerf Endpoints — Submitter Documentation" class="md-header__button md-logo" aria-label="MLPerf Endpoints — Submitter Documentation" data-md-component="logo">
+      
+  <img src="../../assets/mlcommons-logo-white.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            MLPerf Endpoints — Submitter Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Requirements you must meet
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/mlcommons/endpoints_policies" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../understand/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Understand
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../workflow/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Submission Workflow
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Rules & Compliance
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../reference/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../help/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Help
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="MLPerf Endpoints — Submitter Documentation" class="md-nav__button md-logo" aria-label="MLPerf Endpoints — Submitter Documentation" data-md-component="logo">
+      
+  <img src="../../assets/mlcommons-logo-white.svg" alt="logo">
+
+    </a>
+    MLPerf Endpoints — Submitter Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/mlcommons/endpoints_policies" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../understand/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Understand
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Understand
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../understand/what-is-mlperf-endpoints/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    What is MLPerf Endpoints?
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../understand/how-submission-works/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    How submission works
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../understand/divisions-and-scenarios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Divisions and scenarios
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../understand/eligibility/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Membership, PRISM and eligibility
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../workflow/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Submission Workflow
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Submission Workflow
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workflow/before-you-begin/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Before you begin
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workflow/register/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    1. Register and get a token
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workflow/install-tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2. Install the tools
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workflow/plan-your-curve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    3. Plan your Pareto curve
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workflow/run-the-points/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    4. Run the measurement points
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workflow/author-disclosures/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    5. Author the disclosure files
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workflow/validate/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    6. Validate locally
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workflow/submit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    7. Submit
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workflow/after-submission/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    8. After you submit
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Rules & Compliance
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Rules & Compliance
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Requirements you must meet
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Requirements you must meet
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#curve-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Curve structure
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#per-point-run-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Per-point run requirements
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#warmup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Warmup
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#accuracy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Accuracy
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#seeds" class="md-nav__link">
+    <span class="md-ellipsis">
+      Seeds
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consistency-across-the-curve" class="md-nav__link">
+    <span class="md-ellipsis">
+      Consistency across the curve
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#disclosure-by-division" class="md-nav__link">
+    <span class="md-ellipsis">
+      Disclosure by division
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reproducibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reproducibility
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tokenization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tokenization
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      See also
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../model-equivalence/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Model equivalence (Standardized)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../publication-status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Publication status
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rejection-reasons/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Why submissions get rejected
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../reference/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Reference
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/package-layout/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Submission package layout
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/point-yaml/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    point.yaml
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/system-desc-json/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    system_desc.json
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/metrics-and-regions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Metrics and regions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/cli-inference-endpoint/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Benchmark runner CLI
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/cli-submission/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Submission CLI
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/cli-checker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Submission checker
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/compliance-checks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Compliance checks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/submission-states/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Submission states
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Glossary
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../help/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Help
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Help
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../help/troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../help/faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    FAQ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../help/open-questions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Open questions and WIP rules
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../help/support/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Getting support
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#curve-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Curve structure
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#per-point-run-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Per-point run requirements
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#warmup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Warmup
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#accuracy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Accuracy
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#seeds" class="md-nav__link">
+    <span class="md-ellipsis">
+      Seeds
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consistency-across-the-curve" class="md-nav__link">
+    <span class="md-ellipsis">
+      Consistency across the curve
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#disclosure-by-division" class="md-nav__link">
+    <span class="md-ellipsis">
+      Disclosure by division
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reproducibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reproducibility
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tokenization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tokenization
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      See also
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="requirements-you-must-meet">Requirements you must meet<a class="headerlink" href="#requirements-you-must-meet" title="Permanent link">&para;</a></h1>
+<p>Every binding constraint, grouped by what it constrains, with a note on how to tell whether you
+comply. Rules marked <span class="twemoji" style="color:#c62828"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 13h-2V7h2m-2 8h2v2h-2m4.73-14H8.27L3 8.27v7.46L8.27 21h7.46L21 15.73V8.27z"/></svg></span> have a failure action of
+<strong>reject the submission</strong>.</p>
+<div class="admonition warning">
+<p class="admonition-title">The policy repository wins</p>
+<p>This page summarises policy in submitter language. It does <strong>not</strong> restate it. Where this
+page and <a href="https://github.com/mlcommons/endpoints_policies"><code>mlcommons/endpoints_policies</code></a>
+disagree, <strong>the policy repository is correct and this page is a bug</strong>. Please
+<a href="../../help/support/#reporting-a-documentation-problem">report it</a>.</p>
+</div>
+<h2 id="curve-structure">Curve structure<a class="headerlink" href="#curve-structure" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Requirement</th>
+<th>How to check</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="twemoji" style="color:#c62828"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 13h-2V7h2m-2 8h2v2h-2m4.73-14H8.27L3 8.27v7.46L8.27 21h7.46L21 15.73V8.27z"/></svg></span> <strong>≥ 7 measurement points</strong></td>
+<td><code>submission-checker check</code> — rule <code>point-count</code></td>
+</tr>
+<tr>
+<td><strong>≤ 32 measurement points</strong>, including any later additions</td>
+<td>rule <code>point-cap</code></td>
+</tr>
+<tr>
+<td><span class="twemoji" style="color:#c62828"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 13h-2V7h2m-2 8h2v2h-2m4.73-14H8.27L3 8.27v7.46L8.27 21h7.46L21 15.73V8.27z"/></svg></span> <strong>≥ 1 point at concurrency 1–32</strong> (Ultra Low)</td>
+<td>rule <code>ultra-low-concurrency-coverage</code></td>
+</tr>
+<tr>
+<td><span class="twemoji" style="color:#c62828"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 13h-2V7h2m-2 8h2v2h-2m4.73-14H8.27L3 8.27v7.46L8.27 21h7.46L21 15.73V8.27z"/></svg></span> <strong>≥ 1 point in each of Low, Medium, High Concurrency</strong></td>
+<td>rules <code>low-</code> / <code>med-</code> / <code>high-concurrency-coverage</code></td>
+</tr>
+<tr>
+<td><span class="twemoji" style="color:#c62828"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 13h-2V7h2m-2 8h2v2h-2m4.73-14H8.27L3 8.27v7.46L8.27 21h7.46L21 15.73V8.27z"/></svg></span> <strong><code>C_max</code> declared and &gt; 32</strong></td>
+<td>rule <code>max-concurrency-declared</code></td>
+</tr>
+<tr>
+<td>Every concurrency falls in a valid region</td>
+<td>rule <code>concurrency-in-range</code></td>
+</tr>
+</tbody>
+</table>
+<p>Regions are computed in log-2 space from your own <code>C_min</code> and <code>C_max</code>. See
+<a href="../../workflow/plan-your-curve/">Plan your Pareto curve</a> and
+<a href="../../reference/metrics-and-regions/">Metrics and regions</a>.</p>
+<h2 id="per-point-run-requirements">Per-point run requirements<a class="headerlink" href="#per-point-run-requirements" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Requirement</th>
+<th>Value</th>
+<th>How to check</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Load pattern</td>
+<td>The benchmark's <strong>fixed-concurrency</strong> pattern only — <code>max_throughput</code> and <code>poisson</code> are invalid</td>
+<td>rule <code>load-pattern</code></td>
+</tr>
+<tr>
+<td>Steady-state duration</td>
+<td><strong>600 s</strong> Ultra Low; <strong>1,200 s</strong> Low / Medium / High</td>
+<td>rule <code>point-duration</code></td>
+</tr>
+<tr>
+<td>Completed queries</td>
+<td>At least one pass over the dataset</td>
+<td>rule <code>min-query-count</code></td>
+</tr>
+<tr>
+<td>Samples issued</td>
+<td>A whole-number multiple of the dataset size</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Streaming</td>
+<td><code>stream_all_chunks = true</code></td>
+<td>rule <code>streaming-config</code></td>
+</tr>
+<tr>
+<td>Sampling order</td>
+<td>Performance: with replacement. Accuracy: without replacement</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">Section 6 is pending ratification</p>
+<p>The duration and query-count values are marked as example values subject to working-group
+ratification, though they are stated as locked and Task Force-approved for the v0.7 round.
+Check <a href="../../help/open-questions/">Open questions</a> before planning around them.</p>
+</div>
+<h2 id="warmup">Warmup<a class="headerlink" href="#warmup" title="Permanent link">&para;</a></h2>
+<p>Warmup is optional, capped at 24 hours per point, and entirely up to you, but it is
+heavily constrained and heavily disclosed, because warmup state materially affects the measurement.</p>
+<table>
+<thead>
+<tr>
+<th>Requirement</th>
+<th>Detail</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Excluded from metrics</td>
+<td>Everything issued before <code>TEST_STARTED</code></td>
+</tr>
+<tr>
+<td><strong>No performance-dataset samples</strong></td>
+<td>Direct use, subsets, truncations, or anything derived from them. If the client does use the performance dataset, <strong>salting must be enabled</strong> — and it is not on by default</td>
+</tr>
+<tr>
+<td>Logs retained</td>
+<td>Must be available for reviewer inspection; reviewers may cross-check against the dataset</td>
+</tr>
+<tr>
+<td>Declared per point</td>
+<td><code>duration_s</code>, <code>requests_issued</code>, <code>requests_completed</code>, <code>data_source</code>, <code>concurrency</code>, <code>initialization_steps</code></td>
+</tr>
+</tbody>
+</table>
+<p>Incomplete or ambiguous warmup documentation is explicit grounds for a Methodology objection.</p>
+<h2 id="accuracy">Accuracy<a class="headerlink" href="#accuracy" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Requirement</th>
+<th>Detail</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="twemoji" style="color:#c62828"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 13h-2V7h2m-2 8h2v2h-2m4.73-14H8.27L3 8.27v7.46L8.27 21h7.46L21 15.73V8.27z"/></svg></span> Accuracy results at every required point</td>
+<td>The four mandatory region points, plus one Offline point if you submit Offline results</td>
+</tr>
+<tr>
+<td><span class="twemoji" style="color:#c62828"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 13h-2V7h2m-2 8h2v2h-2m4.73-14H8.27L3 8.27v7.46L8.27 21h7.46L21 15.73V8.27z"/></svg></span> The results pass the quality target</td>
+<td><strong>Single-turn:</strong> every result passes. <strong>Multi-turn:</strong> the average of them passes</td>
+</tr>
+<tr>
+<td>Placement (single-turn)</td>
+<td>Same concurrency as the point, same instance, immediately after that point's performance run</td>
+</tr>
+<tr>
+<td>Same configuration</td>
+<td>Identical endpoint config, weights and software stack as the performance runs</td>
+</tr>
+<tr>
+<td>Dataset</td>
+<td>The <strong>un-salted</strong> accuracy dataset</td>
+</tr>
+<tr>
+<td>Tolerance</td>
+<td><strong>None.</strong> Accuracy is a hard gate at compliance and throughout review</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition question">
+<p class="admonition-title">The targets are not published</p>
+<p>Per-benchmark accuracy tolerance values are marked <code>[WIP]</code> upstream. They are not in any source
+this documentation could verify. Ask MLCommons. Tracked as <strong>C2</strong> in
+<a href="../../help/open-questions/">Open questions</a>.</p>
+</div>
+<h2 id="seeds">Seeds<a class="headerlink" href="#seeds" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Requirement</th>
+<th>Detail</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="twemoji" style="color:#c62828"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 13h-2V7h2m-2 8h2v2h-2m4.73-14H8.27L3 8.27v7.46L8.27 21h7.46L21 15.73V8.27z"/></svg></span> One seed set per submission</td>
+<td>Every point records the <strong>same</strong> set</td>
+</tr>
+<tr>
+<td>Adoption window</td>
+<td>The set must have been published for your <code>target_cohort</code> or one of the three preceding cohorts</td>
+</tr>
+<tr>
+<td>Binding lifetime</td>
+<td>Once bound, the set stays valid for that submission even after newer sets publish</td>
+</tr>
+<tr>
+<td>Runtime match</td>
+<td>The client's <abbr title="Random Number Generator">RNG</abbr> seeds must equal the bound set's values</td>
+</tr>
+<tr>
+<td>Salt entropy</td>
+<td>At least 64 bits per query, generated at request-construction time, never stored in the dataset</td>
+</tr>
+<tr>
+<td>Salt placement</td>
+<td><strong>Between</strong> the system prompt and the per-query user context</td>
+</tr>
+</tbody>
+</table>
+<p>For amendments, new or replacement points must match the original submission's bound set — the
+four-cohort adoption test is not reapplied.</p>
+<h2 id="consistency-across-the-curve">Consistency across the curve<a class="headerlink" href="#consistency-across-the-curve" title="Permanent link">&para;</a></h2>
+<p>Same model, endpoint configuration, software stack, dataset and seed set at <strong>every</strong> point. Every
+point's <code>system_desc.json</code> must describe the same system. Freeze the stack before the first run.</p>
+<h2 id="disclosure-by-division">Disclosure by division<a class="headerlink" href="#disclosure-by-division" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Standardized</th>
+<th>Serviced</th>
+<th><abbr title="Research, Development and Internal">RDI</abbr></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Source code to reproduce</td>
+<td>Required</td>
+<td>N/A (remote optional)</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td>Rack / node hardware</td>
+<td>Required</td>
+<td>Optional</td>
+<td>Required</td>
+</tr>
+<tr>
+<td>Primary accelerator</td>
+<td>Required</td>
+<td>Required</td>
+<td>Required</td>
+</tr>
+<tr>
+<td>Parallelism mapping (<abbr title="Tensor Parallelism">TP</abbr>/<abbr title="Expert Parallelism">EP</abbr>/<abbr title="Pipeline Parallelism">PP</abbr>/<abbr title="Data Parallelism">DP</abbr>)</td>
+<td>Required</td>
+<td>Optional</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td>Software stack versions</td>
+<td>Required</td>
+<td>From public docs and API metadata</td>
+<td>Required</td>
+</tr>
+<tr>
+<td>Model name and version</td>
+<td>Required</td>
+<td>Required, as advertised</td>
+<td>Required</td>
+</tr>
+<tr>
+<td>Pricing and rate limits</td>
+<td>—</td>
+<td><strong>Required</strong></td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p>Software disclosure must name, at minimum: the serving framework with version and commit or release
+tag, the accelerator compute library and build, the driver version, and the operating system.</p>
+<h2 id="reproducibility">Reproducibility<a class="headerlink" href="#reproducibility" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Division</th>
+<th>By a third party</th>
+<th>On a third-party system</th>
+<th>On a public endpoint</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Standardized — <abbr title="Client on Prem">CoP</abbr></td>
+<td>Required</td>
+<td>Required</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>Standardized — <abbr title="Client over Network">CoN</abbr></td>
+<td>Required</td>
+<td>Required</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>Serviced — <abbr title="Client over Network">CoN</abbr></td>
+<td>Required</td>
+<td>Optional</td>
+<td><strong>Required</strong></td>
+</tr>
+<tr>
+<td><abbr title="Research, Development and Internal">RDI</abbr></td>
+<td>Optional</td>
+<td>Optional</td>
+<td>Optional</td>
+</tr>
+</tbody>
+</table>
+<p>Variability margins during review: <strong>10%</strong> when an independent party re-runs, <strong>5%</strong> on the exact
+same system. Both apply to <code>system_tps</code> and <code>tps_per_user</code> only, <strong>not</strong> to any latency percentile.</p>
+<h2 id="tokenization">Tokenization<a class="headerlink" href="#tokenization" title="Permanent link">&para;</a></h2>
+<p>Official output token counts are produced by the <strong>client-side reference tokenizer</strong>, applied once
+to the reconstructed assistant message through the model's official reference chat template. Not by
+your serving stack, and not as a sum of per-chunk counts.</p>
+<table>
+<thead>
+<tr>
+<th>Content</th>
+<th>Counted?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Visible output</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Tool-call content</td>
+<td>Yes — reassembled by ascending tool-call index</td>
+</tr>
+<tr>
+<td>Reasoning / thinking</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Chat-template framing</td>
+<td>Only payload-specific framing; empty-assistant framing is subtracted out</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition danger">
+<p class="admonition-title">Padding and duplication invalidate the point</p>
+<p>Each received fragment must be assigned to exactly one response field and must not contribute
+twice. Deliberately duplicating substantially identical content across fields, or padding any
+field to inflate reported token counts, is prohibited and <strong>invalidates the affected
+measurement point</strong>.</p>
+<p>Emitting whitespace, control characters or punctuation just to stop the <abbr title="Time To First Token">TTFT</abbr> clock, rather than
+as a genuine part of the response, is also not allowed.</p>
+</div>
+<h2 id="see-also">See also<a class="headerlink" href="#see-also" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../model-equivalence/">Model equivalence</a> — if you are submitting Standardized</li>
+<li><a href="../publication-status/">Publication status</a> — the Available / Preview / <abbr title="Research, Development and Internal">RDI</abbr> tests</li>
+<li><a href="../../reference/compliance-checks/">Compliance checks</a> — rule ID to clause cross-walk</li>
+</ul>
+<div class="admonition danger">
+<p class="admonition-title">These rules are a working draft</p>
+<p>MLPerf Endpoints v1.0 rules are on an active development branch. Sections marked
+<code>[TENTATIVE]</code>, <code>[WIP]</code>, <code>[WG Open Item]</code> or <code>[WG Decision Required]</code> upstream can still
+change. Before committing hardware time to a submission, read
+<a href="../../help/open-questions/">Open questions and WIP rules</a>.</p>
+</div>
+<p><em>Last verified against: <code>mlcommons/endpoints_policies@v1.0_rules_dev</code> (a7ec3cc), 2026-09-19.</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      MLPerf and MLCommons are trademarks of MLCommons Association.
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.indexes", "navigation.top", "navigation.tracking", "content.code.copy", "content.tabs.link", "search.suggest", "search.highlight", "toc.follow"], "search": "../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.56ea9cef.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,2205 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="How to prepare, validate and submit an MLPerf Endpoints benchmark result.">
+      
+      
+      
+        <link rel="canonical" href="https://anandhu-eng.github.io/endpoints-submission-docs/reference/cli-submission/">
+      
+      
+        <link rel="prev" href="../cli-inference-endpoint/">
+      
+      
+        <link rel="next" href="../cli-checker/">
+      
+      
+      <link rel="icon" href="../../assets/mlcommons-logo-mark.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.15">
+    
+    
+      
+        <title>Submission CLI - MLPerf Endpoints — Submitter Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.342714a4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#submission-cli-endpoints-submission-cli" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="MLPerf Endpoints — Submitter Documentation" class="md-header__button md-logo" aria-label="MLPerf Endpoints — Submitter Documentation" data-md-component="logo">
+      
+  <img src="../../assets/mlcommons-logo-white.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            MLPerf Endpoints — Submitter Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Submission CLI
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/mlcommons/endpoints_policies" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../understand/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Understand
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../workflow/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Submission Workflow
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../rules/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Rules & Compliance
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../help/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Help
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="MLPerf Endpoints — Submitter Documentation" class="md-nav__button md-logo" aria-label="MLPerf Endpoints — Submitter Documentation" data-md-component="logo">
+      
+  <img src="../../assets/mlcommons-logo-white.svg" alt="logo">
+
+    </a>
+    MLPerf Endpoints — Submitter Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/mlcommons/endpoints_policies" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../understand/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Understand
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Understand
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../understand/what-is-mlperf-endpoints/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    What is MLPerf Endpoints?
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../understand/how-submission-works/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    How submission works
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../understand/divisions-and-scenarios/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Divisions and scenarios
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../understand/eligibility/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Membership, PRISM and eligibility
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../workflow/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Submission Workflow
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Submission Workflow
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workflow/before-you-begin/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Before you begin
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workflow/register/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    1. Register and get a token
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workflow/install-tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2. Install the tools
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workflow/plan-your-curve/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    3. Plan your Pareto curve
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workflow/run-the-points/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    4. Run the measurement points
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workflow/author-disclosures/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    5. Author the disclosure files
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workflow/validate/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    6. Validate locally
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workflow/submit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    7. Submit
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workflow/after-submission/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    8. After you submit
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../rules/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Rules & Compliance
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Rules & Compliance
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rules/requirements/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Requirements you must meet
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rules/model-equivalence/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Model equivalence (Standardized)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rules/publication-status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Publication status
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rules/rejection-reasons/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Why submissions get rejected
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Reference
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../package-layout/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Submission package layout
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../point-yaml/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    point.yaml
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../system-desc-json/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    system_desc.json
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../metrics-and-regions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Metrics and regions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli-inference-endpoint/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Benchmark runner CLI
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Submission CLI
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Submission CLI
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Requirements
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      Authentication
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#command-tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      Command tree
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#runs-create" class="md-nav__link">
+    <span class="md-ellipsis">
+      runs create
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#runs-get" class="md-nav__link">
+    <span class="md-ellipsis">
+      runs get
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#runs-delete-pin-unpin" class="md-nav__link">
+    <span class="md-ellipsis">
+      runs delete / pin / unpin
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#submissions-create" class="md-nav__link">
+    <span class="md-ellipsis">
+      submissions create
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#submissions-get" class="md-nav__link">
+    <span class="md-ellipsis">
+      submissions get
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#submissions-update" class="md-nav__link">
+    <span class="md-ellipsis">
+      submissions update
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#submissions-remove-run" class="md-nav__link">
+    <span class="md-ellipsis">
+      submissions remove-run
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#submissions-withdraw" class="md-nav__link">
+    <span class="md-ellipsis">
+      submissions withdraw
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#submissions-create-local" class="md-nav__link">
+    <span class="md-ellipsis">
+      submissions create-local
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#status-lifecycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      Status lifecycle
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli-checker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Submission checker
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../compliance-checks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Compliance checks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../submission-states/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Submission states
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Glossary
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../help/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Help
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Help
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../help/troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../help/faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    FAQ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../help/open-questions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Open questions and WIP rules
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../help/support/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Getting support
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Requirements
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      Authentication
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#command-tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      Command tree
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#runs-create" class="md-nav__link">
+    <span class="md-ellipsis">
+      runs create
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#runs-get" class="md-nav__link">
+    <span class="md-ellipsis">
+      runs get
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#runs-delete-pin-unpin" class="md-nav__link">
+    <span class="md-ellipsis">
+      runs delete / pin / unpin
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#submissions-create" class="md-nav__link">
+    <span class="md-ellipsis">
+      submissions create
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#submissions-get" class="md-nav__link">
+    <span class="md-ellipsis">
+      submissions get
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#submissions-update" class="md-nav__link">
+    <span class="md-ellipsis">
+      submissions update
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#submissions-remove-run" class="md-nav__link">
+    <span class="md-ellipsis">
+      submissions remove-run
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#submissions-withdraw" class="md-nav__link">
+    <span class="md-ellipsis">
+      submissions withdraw
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#submissions-create-local" class="md-nav__link">
+    <span class="md-ellipsis">
+      submissions create-local
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#status-lifecycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      Status lifecycle
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="submission-cli-endpoints-submission-cli">Submission CLI — <code>endpoints-submission-cli</code><a class="headerlink" href="#submission-cli-endpoints-submission-cli" title="Permanent link">&para;</a></h1>
+<p>Registers benchmark runs, assembles submission bundles, runs compliance checks and uploads to the
+<abbr title="The MLCommons submission portal that issues API tokens">PRISM</abbr> Submission API. Used in <a href="../../workflow/submit/">step 7</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Tracks upstream</p>
+<p>This page tracks <code>docs/endpoints-cli/usage/</code> in <code>mlcommons/endpoints-submission-cli</code>. Run
+<code>--help</code> on any command for the authoritative flag list.</p>
+</div>
+<h2 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Python 3.10+</li>
+<li><a href="https://cli.github.com/"><code>gh</code> CLI</a> — required for creating, updating and withdrawing submissions</li>
+<li>A <abbr title="The MLCommons submission portal that issues API tokens">PRISM</abbr> API token in <code>mlc_…</code> format</li>
+</ul>
+<h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>endpoints-submission-cli
+</code></pre></div>
+<p>Ships both <code>endpoints-submission-cli</code> and <a href="../cli-checker/"><code>submission-checker</code></a>.</p>
+<h2 id="authentication">Authentication<a class="headerlink" href="#authentication" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Environment variable</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PRISM_USER_API_TOKEN</code></td>
+<td>—</td>
+<td>API key. Required unless <code>--token</code> is passed</td>
+</tr>
+<tr>
+<td><code>MLPERF_API_BASE_URL</code></td>
+<td><code>https://api.mlcommons.org</code></td>
+<td>Override only for dev/staging</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">PRISM_USER_API_TOKEN</span><span class="o">=</span>mlc_your_token_here
+</code></pre></div>
+<p><code>--token</code> is available on every command and wins when both are set.</p>
+<h2 id="command-tree">Command tree<a class="headerlink" href="#command-tree" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>endpoints-submission-cli
+├── runs
+│   ├── list          List all runs
+│   ├── create        Register a run from a local folder
+│   ├── get           Fetch run details
+│   ├── delete        Delete a run and its archive
+│   ├── pin           Pin a run (prevent expiry)
+│   └── unpin         Restore normal expiry
+└── submissions
+    ├── list          List all submissions
+    ├── create        Create a submission from registered runs
+    ├── create-local  Create from an already-assembled submission directory
+    ├── get           Fetch submission details
+    ├── update        Update run list or metadata
+    ├── withdraw      Withdraw a submission
+    └── remove-run    Remove a run from a submission
+</code></pre></div>
+<p><code>-j</code> / <code>--json</code> is available on list and get commands for machine-readable output.</p>
+<hr />
+<h2 id="runs-create"><code>runs create</code><a class="headerlink" href="#runs-create" title="Permanent link">&para;</a></h2>
+<p>Parses a local run folder, registers a run record, and uploads the folder as a <code>.tar.gz</code>.</p>
+<div class="highlight"><pre><span></span><code>endpoints-submission-cli<span class="w"> </span>runs<span class="w"> </span>create<span class="w"> </span>--path<span class="w"> </span>PATH<span class="w"> </span><span class="o">[</span>--expires-at<span class="w"> </span>DATETIME<span class="o">]</span><span class="w"> </span><span class="o">[</span>--pinned<span class="o">]</span><span class="w"> </span><span class="o">[</span>--test<span class="o">]</span><span class="w"> </span><span class="o">[</span>--dry-run<span class="o">]</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Flag</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--path PATH</code></td>
+<td>yes</td>
+<td>Path to the local run folder</td>
+</tr>
+<tr>
+<td><code>--expires-at DATETIME</code></td>
+<td>no</td>
+<td>ISO 8601 expiry. Defaults to server policy</td>
+</tr>
+<tr>
+<td><code>--pinned</code></td>
+<td>no</td>
+<td>Pin immediately to prevent automatic expiry</td>
+</tr>
+<tr>
+<td><code>--test</code></td>
+<td>no</td>
+<td>Mark as a test run, excluded from published reporting. <strong>Fixed at creation</strong> — no API to change it later</td>
+</tr>
+<tr>
+<td><code>--dry-run</code></td>
+<td>no</td>
+<td>Print the parsed payload and exit without calling the API</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Rollback:</strong> if the archive upload fails after the record was created, the CLI deletes the record
+to leave a clean state. If that delete also fails, the orphaned run ID is printed.</p>
+<div class="admonition note">
+<p class="admonition-title"><code>--test</code> is invisible in <code>runs list</code></p>
+<p>That view is served by the API's <code>RunSummary</code> schema, which does not carry <code>is_test</code>.
+<code>runs get</code> shows <code>Test Run │ Yes</code>, and <code>submissions get</code> marks a flagged run with a yellow <code>*</code>.</p>
+</div>
+<p><strong>Payload mapping:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Payload field</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>system_info</code></td>
+<td><code>system_desc.json</code> (submitter-authored)</td>
+</tr>
+<tr>
+<td><code>config</code></td>
+<td><code>config.yaml</code></td>
+</tr>
+<tr>
+<td><code>result_summary</code></td>
+<td><code>performance/result_summary.json</code></td>
+</tr>
+<tr>
+<td><code>benchmark_version</code></td>
+<td><code>result_summary.git_sha</code></td>
+</tr>
+<tr>
+<td><code>started_at</code> / <code>finished_at</code></td>
+<td><code>result_summary.test_started_at</code> + <code>duration_ns</code></td>
+</tr>
+</tbody>
+</table>
+<p>Everything else in the folder, including <code>accuracy/</code> and <code>events.jsonl</code>, reaches the server inside
+the uploaded archive rather than the JSON payload.</p>
+<h2 id="runs-get"><code>runs get</code><a class="headerlink" href="#runs-get" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>endpoints-submission-cli<span class="w"> </span>runs<span class="w"> </span>get<span class="w"> </span>--run-id<span class="w"> </span>RUN_ID<span class="w"> </span><span class="o">[</span>--download-to<span class="w"> </span>DIR<span class="o">]</span><span class="w"> </span><span class="o">[</span>-j<span class="o">]</span>
+</code></pre></div>
+<p>Renders a table plus a System Info table. <code>config</code> and <code>result_summary</code> are nested blobs omitted
+from the table, so use <code>-j</code> to see them. With <code>--download-to</code>, the archive is saved as <code>&lt;run-id&gt;.tar.gz</code> and the
+path is printed to <strong>stderr</strong>, so <code>runs get -j</code> stays pipeable into <code>jq</code>.</p>
+<h2 id="runs-delete-pin-unpin"><code>runs delete</code> / <code>pin</code> / <code>unpin</code><a class="headerlink" href="#runs-delete-pin-unpin" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>endpoints-submission-cli<span class="w"> </span>runs<span class="w"> </span>delete<span class="w"> </span>--run-id<span class="w"> </span>RUN_ID
+endpoints-submission-cli<span class="w"> </span>runs<span class="w"> </span>pin<span class="w">    </span>--run-id<span class="w"> </span>RUN_ID
+endpoints-submission-cli<span class="w"> </span>runs<span class="w"> </span>unpin<span class="w">  </span>--run-id<span class="w"> </span>RUN_ID
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Runs in an active submission cannot be deleted</p>
+<p>Withdraw the submission first, then delete the run. Deletion removes the archive from storage
+first (a 404 is ignored), then the record from the database.</p>
+</div>
+<hr />
+<h2 id="submissions-create"><code>submissions create</code><a class="headerlink" href="#submissions-create" title="Permanent link">&para;</a></h2>
+<p>The full pipeline. Aborts before uploading anything if the checker finds errors.</p>
+<div class="highlight"><pre><span></span><code>endpoints-submission-cli<span class="w"> </span>submissions<span class="w"> </span>create<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--division<span class="w"> </span>DIVISION<span class="w"> </span>--scenario<span class="w"> </span>SCENARIO<span class="w"> </span>--availability<span class="w"> </span>AVAILABILITY<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--run-ids<span class="w"> </span>RUN_ID<span class="w"> </span><span class="o">[</span>--run-ids<span class="w"> </span>RUN_ID<span class="w"> </span>...<span class="o">]</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="o">[</span>--provisional<span class="o">]</span><span class="w"> </span><span class="o">[</span>--yes<span class="o">]</span><span class="w"> </span><span class="o">[</span>--publication-cycle<span class="w"> </span>CYCLE<span class="o">]</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="o">[</span>--target-availability-date<span class="w"> </span>DATE<span class="o">]</span><span class="w"> </span><span class="o">[</span>--embargo-date<span class="w"> </span>DATETIME<span class="o">]</span><span class="w"> </span><span class="o">[</span>--dry-run<span class="o">]</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Flag</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--division</code></td>
+<td>yes</td>
+<td><code>standardized</code> | <code>serviced</code> | <code>rdi</code></td>
+</tr>
+<tr>
+<td><code>--scenario</code></td>
+<td>yes</td>
+<td><code>cop</code> | <code>con</code></td>
+</tr>
+<tr>
+<td><code>--availability</code></td>
+<td>yes</td>
+<td><code>available</code> | <code>preview</code> | <code>rdi</code></td>
+</tr>
+<tr>
+<td><code>--run-ids RUN_ID</code></td>
+<td>yes</td>
+<td>Repeatable — one flag per run</td>
+</tr>
+<tr>
+<td><code>--provisional</code></td>
+<td>no</td>
+<td>Request provisional publication. Prompts for confirmation</td>
+</tr>
+<tr>
+<td><code>--yes</code> / <code>-y</code></td>
+<td>no</td>
+<td>Skip the provisional confirmation prompt</td>
+</tr>
+<tr>
+<td><code>--publication-cycle</code></td>
+<td>no</td>
+<td>e.g. <code>2026-09-C1</code></td>
+</tr>
+<tr>
+<td><code>--target-availability-date</code></td>
+<td>conditional</td>
+<td><code>YYYY-MM-DD</code>. <strong>Required</strong> with <code>--availability preview</code></td>
+</tr>
+<tr>
+<td><code>--embargo-date</code></td>
+<td>no</td>
+<td>ISO 8601 datetime</td>
+</tr>
+<tr>
+<td><code>--dry-run</code></td>
+<td>no</td>
+<td>Assemble and check, print the layout, exit</td>
+</tr>
+</tbody>
+</table>
+<p><strong>What it does:</strong></p>
+<ol>
+<li>Download all run archives</li>
+<li>Assemble the submission folder</li>
+<li>Run the <a href="../cli-checker/">Submission Checker</a> — aborts with exit 1 on compliance errors</li>
+<li><code>POST /submissions</code></li>
+<li>Upload the bundle</li>
+<li><code>PATCH /submissions/{id}</code> to set <code>status=REVIEW_PENDING</code></li>
+</ol>
+<p><strong>Rollback:</strong> if the bundle upload fails, the submission is automatically withdrawn. If step 6 alone
+fails, both submission and bundle exist. It's a warning, not fatal, and the status can be set manually.</p>
+<div class="admonition note">
+<p class="admonition-title">The CLI does not open the review PR</p>
+<p><code>pr_url</code> and <code>pr_number</code> appear on the submission record once whatever opens it has set them.</p>
+</div>
+<h2 id="submissions-get"><code>submissions get</code><a class="headerlink" href="#submissions-get" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>endpoints-submission-cli<span class="w"> </span>submissions<span class="w"> </span>get<span class="w"> </span>--submission-id<span class="w"> </span>SUB_ID<span class="w"> </span><span class="o">[</span>-j<span class="o">]</span>
+</code></pre></div>
+<p>Renders every field the API returns: classification, test flag, publication cycle, embargo date,
+<code>Reviewers Assigned</code> (a count; reviewer identities are never exposed), checker/API/CLI versions, PR
+references, and all lifecycle timestamps in order. Embedded runs follow in their own table.</p>
+<h2 id="submissions-update"><code>submissions update</code><a class="headerlink" href="#submissions-update" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>endpoints-submission-cli<span class="w"> </span>submissions<span class="w"> </span>update<span class="w"> </span>--submission-id<span class="w"> </span>SUB_ID<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="o">[</span>--run-ids<span class="w"> </span>RUN_ID<span class="w"> </span>...<span class="o">]</span><span class="w"> </span><span class="o">[</span>--target-availability-date<span class="w"> </span>DATE<span class="o">]</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="o">[</span>--publication-cycle<span class="w"> </span>CYCLE<span class="o">]</span><span class="w"> </span><span class="o">[</span>--embargo-date<span class="w"> </span>DATETIME<span class="o">]</span>
+</code></pre></div>
+<p>With no flags it prints a warning and makes no API call.</p>
+<p><strong>Metadata only</strong> → a single <code>PATCH</code>, no rebuild.</p>
+<p><strong>With <code>--run-ids</code></strong> → full rebuild: fetch current list, reject additions, PATCH, download remaining
+archives, reassemble, re-check, re-upload. If anything after the PATCH fails, the run list is
+restored.</p>
+<div class="admonition danger">
+<p class="admonition-title"><code>--run-ids</code> may only shrink the list</p>
+<p>The Submission Rules no longer provide a post-submission window for adding measurement points,
+so a list containing a run the submission does not already have is <strong>rejected</strong> before anything
+is fetched or patched.</p>
+</div>
+<h2 id="submissions-remove-run"><code>submissions remove-run</code><a class="headerlink" href="#submissions-remove-run" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>endpoints-submission-cli<span class="w"> </span>submissions<span class="w"> </span>remove-run<span class="w"> </span>--submission-id<span class="w"> </span>SUB_ID<span class="w"> </span>--run-id<span class="w"> </span>RUN_ID
+</code></pre></div>
+<p>Registers the removal, then rebuilds, re-checks and re-uploads if runs remain. If none remain,
+steps 2–4 are skipped with a warning. Rollback re-adds the run on failure.</p>
+<div class="admonition danger">
+<p class="admonition-title">Removed points cannot be replaced</p>
+<p>Withdrawn points do <strong>not</strong> count toward the 7-point minimum, and that shortfall cannot be
+repaired by adding another point. There is no <code>add-run</code>. If a submission needs a different set of
+runs, create a new one.</p>
+</div>
+<h2 id="submissions-withdraw"><code>submissions withdraw</code><a class="headerlink" href="#submissions-withdraw" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>endpoints-submission-cli<span class="w"> </span>submissions<span class="w"> </span>withdraw<span class="w"> </span>--submission-id<span class="w"> </span>SUB_ID
+</code></pre></div>
+<p>Marks the submission <code>WITHDRAWN</code> and deletes the stored bundle. Archive deletion is best-effort: a
+failure is a warning and does not change the exit code. The CLI does not close the review PR.</p>
+<h2 id="submissions-create-local"><code>submissions create-local</code><a class="headerlink" href="#submissions-create-local" title="Permanent link">&para;</a></h2>
+<p>Creates a submission from an <strong>already-assembled</strong> submission directory rather than from registered
+runs. Takes <code>--path</code> (org-level directory) plus the same classification flags. <code>--test</code> sets the
+test flag on every run it registers, so a test submission leaves no untagged runs behind.</p>
+<h2 id="status-lifecycle">Status lifecycle<a class="headerlink" href="#status-lifecycle" title="Permanent link">&para;</a></h2>
+<p>See <a href="../submission-states/">Submission states</a>.</p>
+<p><em>Last verified against: <code>mlcommons/endpoints-submission-cli@main</code> (f48ca84), 2026-09-19.</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      MLPerf and MLCommons are trademarks of MLCommons Association.
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.indexes", "navigation.top", "navigation.tracking", "content.code.copy", "content.tabs.link", "search.suggest", "search.highlight", "toc.follow"], "search": "../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.56ea9cef.min.js"></script>
+      
+    
+  </body>
+</html>

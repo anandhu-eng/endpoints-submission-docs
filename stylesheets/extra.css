@@ -1,0 +1,24 @@
+:root { --md-admonition-icon--verify: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>'); }
+.md-typeset table:not([class]) { font-size: .74rem; }
+.md-typeset .admonition.verify, .md-typeset details.verify { border-color: #00897b; }
+.md-typeset .verify > .admonition-title, .md-typeset .verify > summary { background-color: #00897b1a; }
+.md-typeset .verify > .admonition-title::before, .md-typeset .verify > summary::before {
+  background-color: #00897b; -webkit-mask-image: var(--md-admonition-icon--verify); mask-image: var(--md-admonition-icon--verify); }
+
+/* --- MLCommons logo -------------------------------------------------------
+   theme.logo is the white-filled variant because the header sits on the
+   indigo primary colour. The mobile nav drawer does NOT: its title bar uses
+   --md-default-fg-color--lightest, which is near-white in light mode, so the
+   white wordmark would be invisible there. Swap in the dark original, and
+   swap back under the slate scheme where that surface is dark again.
+   The mint dot is a fixed colour in both files, so a filter-based recolour
+   would corrupt it — hence a source swap rather than invert(). */
+.md-nav__button.md-logo img { content: url("../assets/mlcommons-logo.svg"); }
+[data-md-color-scheme="slate"] .md-nav__button.md-logo img { content: url("../assets/mlcommons-logo-white.svg"); }
+
+/* The MLCommons logo is a two-line stacked lockup ("ML" over "Commons").
+   Material sizes the header logo at 1.2rem, which leaves each line ~10px and
+   barely legible. Raise it to 1.8rem and trim the button's own padding and
+   margin by the same amount, so the header keeps its 2.4rem height. */
+.md-header__button.md-logo { padding: .2rem; margin: .1rem; }
+.md-header__button.md-logo img { height: 1.8rem; }
